@@ -107,49 +107,43 @@
 </blockquote>
 <blockquote>
 <h3 id="HashMap的存储方式"><a href="#HashMap的存储方式" class="headerlink" title="HashMap的存储方式"></a>HashMap的存储方式</h3><blockquote>
-<p><code>`</code><br>    static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {<br>               final int hash;<br>               final K key;<br>               V value;<br>               Node&lt;K,V&gt; next;</p>
+<p><html><br>              static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {<br>                         final int hash;<br>                         final K key;<br>                         V value;<br>                         Node&lt;K,V&gt; next;</html></p>
 </blockquote>
 </blockquote>
-<pre><code>           Node(int hash, K key, V value, Node&lt;K,V&gt; next) {
-               this.hash = hash;
-               this.key = key;
-               this.value = value;
-               this.next = next;
-           }
+<pre><code>                     Node(int hash, K key, V value, Node&lt;K,V&gt; next) {
+                         this.hash = hash;
+                         this.key = key;
+                         this.value = value;
+                         this.next = next;
+                     }
 
-           public final K getKey()        { return key; }
-           public final V getValue()      { return value; }
-           public final String toString() { return key + &quot;=&quot; + value; }
+                     public final K getKey()        { return key; }
+                     public final V getValue()      { return value; }
+                     public final String toString() { return key + &quot;=&quot; + value; }
 
-           public final int hashCode() {
-               return Objects.hashCode(key) ^ Objects.hashCode(value);
-           }
+                     public final int hashCode() {
+                         return Objects.hashCode(key) ^ Objects.hashCode(value);
+                     }
 
-           public final V setValue(V newValue) {
-               V oldValue = value;
-               value = newValue;
-               return oldValue;
-           }
+                     public final V setValue(V newValue) {
+                         V oldValue = value;
+                         value = newValue;
+                         return oldValue;
+                     }
 
-           public final boolean equals(Object o) {
-               if (o == this)
-                   return true;
-               if (o instanceof Map.Entry) {
-                   Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;
-                   if (Objects.equals(key, e.getKey()) &amp;&amp;
-                       Objects.equals(value, e.getValue()))
-                       return true;
-               }
-               return false;
-           }
-       }
-  ```
-</code></pre><blockquote>
-<blockquote>
-<p>sad </p>
-</blockquote>
-</blockquote>
-
+                     public final boolean equals(Object o) {
+                         if (o == this)
+                             return true;
+                         if (o instanceof Map.Entry) {
+                             Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;
+                             if (Objects.equals(key, e.getKey()) &amp;&amp;
+                                 Objects.equals(value, e.getValue()))
+                                 return true;
+                         }
+                         return false;
+                     }
+                 }
+</code></pre>  <html></html>
                 <hr>
                 <div>
                     <p>
