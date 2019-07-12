@@ -152,14 +152,12 @@
 <p><strong>优点</strong>:hashmap通过计算hash值来实现快速查找，如果不存在冲突时间复杂度可以达到O(1)，否则就是O(1+n).<br><br><strong>缺点</strong>:<br></p>
 <ol>
 <li>多线程中使用HashMap会出现线程安全问题</li>
-<li>每次计算hash值都是同一个值 <pre><code>我们知道，HashMap底层是通过数组和链表的数据结构实现的，通过拉链发解决hash冲突的，如果每次计算的hash值都是同一个，那么会造成链表中长度多长的问题。
-</code></pre></li>
-<li>每次计算hash值都是不同的值 <pre><code> 这是另外一种极端，就是每次计算的hash值都不一样，这样会造成什么后果呢？很简单，就是HashMap中的数组会不断的扩容，造成HashMap的容量不断增大。      
-</code></pre></li>
+<li>每次计算hash值都是同一个值,我们知道，HashMap底层是通过数组和链表的数据结构实现的，通过拉链发解决hash冲突的，如果每次计算的hash值都是同一个，那么会造成链表中长度多长的问题。</li>
+<li>每次计算hash值都是不同的值,这是另外一种极端，就是每次计算的hash值都不一样，这样会造成什么后果呢？很简单，就是HashMap中的数组会不断的扩容，造成HashMap的容量不断增大。      </li>
 </ol>
 </blockquote>
 </blockquote>
-<p> ###引用<br> <a href="https://blog.csdn.net/justloveyou_/article/details/62893086" target="_blank" rel="noopener">Map 综述（一）：彻头彻尾理解 HashMap</a><br><br> <a href>java核心卷I</a><br><br> <a href>java编程思想</a></p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p> <a href="https://blog.csdn.net/justloveyou_/article/details/62893086" target="_blank" rel="noopener">Map 综述（一）：彻头彻尾理解 HashMap</a><br><br> <a href>java核心卷I</a><br><br> <a href>java编程思想</a><br><br> <a href="https://blog.csdn.net/lsy1072/article/details/79613203" target="_blank" rel="noopener">HashMap的缺点</a></p>
 
                 <hr>
                 <div>
