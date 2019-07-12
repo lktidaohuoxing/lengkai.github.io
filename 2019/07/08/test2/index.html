@@ -83,13 +83,74 @@
     <div class="row">
         <div class="col-md-8 offset-md-2 ">
             <div class="post-content py-5 z-depth-3 main">
-                <pre><code>fucking life
+                <h1 id="浅谈我对hashmap的理解"><a href="#浅谈我对hashmap的理解" class="headerlink" title="浅谈我对hashmap的理解"></a>浅谈我对hashmap的理解</h1><p>===================<br>    最近最近做了一个题，有一个测试点有超大的数据量，我的代码总是超时，最后我看题解之后，<br>    别人使用hashmap减少时间复杂度。所以我又重新复习了一遍hashmap，重新对其理解了一遍。</p>
+<hr>
+<blockquote>
+<h3 id="HashMap的简单概述"><a href="#HashMap的简单概述" class="headerlink" title="HashMap的简单概述"></a>HashMap的简单概述</h3><blockquote>
+<p>HashMap 是基于哈希表的 Map 接口的实现(hashtable的性能大体上与hashmap相当)，<br>    以 Key-Value 的形式存在，即存储的对象是 Entry (同时包含了 Key 和 Value) 。在HashMap中，其会根据hash算法来计算key-value的存储位置并进行快速存取。特别地，HashMap最多只允许一条Entry的键为Null(多条会覆盖)，但允许多条Entry的值为Null。此外，HashMap 是 Map 的一个非同步的实现</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>hashmap中的重要参数</p>
+<ol>
+<li>Capacity(容量) : 表中的桶位数。</li>
+<li>initialCapacity（初始容量) : 表在创建时所拥有的桶位数。</li>
+<li>size(尺寸) : 表示当前存储的项数。</li>
+<li>loadFactor(负载因子) : 尺寸/容量。空表的负载因子为0，而半满表的负载因子为0.5.以此类推，负载轻的表中产生冲突的可能性小。默认为0.75.</li>
+</ol>
+</blockquote>
+</blockquote>
+<blockquote>
+<h3 id="HashMap的构造函数"><a href="#HashMap的构造函数" class="headerlink" title="HashMap的构造函数"></a>HashMap的构造函数</h3><blockquote>
+<p>HashMap的构造函数有4中，他们分别是。<br><br>1.HashMap() 无参数，会产生一个initialCapacity为16，loadFactor为0.75的空hashmap.<br>2.HashMap(int initialCapacity, float loadFactor) 构造一个指定初始容量，负载因子的hashmap <br><br>3.HashMap(int initialCapacity) 构造一个指定初始容量和默认负载因子 (0.75)的空 HashMap <br><br>4.HashMap(Map&lt;? extends K, ? extends V&gt; m) 构造一个与指定 Map 具有相同映射的 HashMap，其初始容量不小于 16 (具体依赖于指定Map的大小)，负载因子是 0.75</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h3 id="HashMap的存储方式"><a href="#HashMap的存储方式" class="headerlink" title="HashMap的存储方式"></a>HashMap的存储方式</h3><blockquote>
+<p><code>`</code>ruby   static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {<br>               final int hash;<br>               final K key;<br>               V value;<br>               Node&lt;K,V&gt; next;</p>
+</blockquote>
+</blockquote>
+<pre><code>           Node(int hash, K key, V value, Node&lt;K,V&gt; next) {
+               this.hash = hash;
+               this.key = key;
+               this.value = value;
+               this.next = next;
+           }
+
+           public final K getKey()        { return key; }
+           public final V getValue()      { return value; }
+           public final String toString() { return key + &quot;=&quot; + value; }
+
+           public final int hashCode() {
+               return Objects.hashCode(key) ^ Objects.hashCode(value);
+           }
+
+           public final V setValue(V newValue) {
+               V oldValue = value;
+               value = newValue;
+               return oldValue;
+           }
+
+           public final boolean equals(Object o) {
+               if (o == this)
+                   return true;
+               if (o instanceof Map.Entry) {
+                   Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;
+                   if (Objects.equals(key, e.getKey()) &amp;&amp;
+                       Objects.equals(value, e.getValue()))
+                       return true;
+               }
+               return false;
+           }
+       }
+       ```
 </code></pre>
                 <hr>
                 <div>
                     <p>
                          
-                        <span class="badge badge-light">#&nbsp;生活</span>
+                        <span class="badge badge-light">#&nbsp;java</span>
                         &nbsp;
                         
                     </p>
