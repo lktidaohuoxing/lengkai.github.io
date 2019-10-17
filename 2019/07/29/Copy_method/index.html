@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content>
+    <meta name="author" content="冷凯">
+    <meta name="keywords" content>
+    <title>集合的Copy方法 ~ LengKai&#39;s blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/mdb.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1067060_vr10bjtg3us.css">
+    
+        <link rel="stylesheet" href="/css/Prettify/tomorrow-night-eighties.min.css">
+    
+</head>
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/"><strong>LengKai&#39;s blog</strong></a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2" style='background: url("https://i.imgur.com/oADD1Ip.jpg")no-repeat center center;background-size: cover;'>
+    <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+        <div class="container text-center white-text wow fadeInUp">
+            <p class="h2">集合的Copy方法</p>
+            <br>
+            
+            <p>Monday, July 29th 2019, 4:55 pm</p>
+            
+        </div>
+        </div>
+    </div>
+    </div>
+  </header>
+
+  <main>
+  
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 ">
+            <div class="post-content py-5 z-depth-3 main">
+                <h3 id="哈夫曼树的基本概念"><a href="#哈夫曼树的基本概念" class="headerlink" title="哈夫曼树的基本概念"></a>哈夫曼树的基本概念</h3><p>给定n个权值作为n个叶子结点，构造一棵二叉树，若该<strong>树</strong>的<strong>带权路径长度（WPL）达到最小</strong>，称这样的二叉树为最优二叉树，也称为哈夫曼树(Huffman Tree)。 哈夫曼树是带权路径长度最短的树，权值较大的结点离根较近。</p>
+<p><strong>注</strong> :满二叉树或完全二叉树不一定是最优二叉树，权值越大的节点离根节点越进的二叉树才是最有二叉树。</p>
+<h3 id="哈夫曼树的应用"><a href="#哈夫曼树的应用" class="headerlink" title="哈夫曼树的应用"></a>哈夫曼树的应用</h3><p>哈夫曼树有啥用呢，今天做了一个题，结果没想倒要用哈夫曼树，但是想的差不多了，就是没做出来，<a href="https://pintia.cn/problem-sets/15/problems/856" target="_blank" rel="noopener">修理牧场</a> ,这个题感觉挺简单的。每次找到权最小的哪个然后砍就行了。然后我就觉得我有必要搜一下哈夫曼树的应用了，比较考研数据结构里好像有-  -。</p>
+<hr>
+<h4 id="1-找最有二叉树"><a href="#1-找最有二叉树" class="headerlink" title="1.找最有二叉树"></a>1.找最有二叉树</h4><p>就是带权路径长度（wpl）最小的一棵树，所以遇到与带权路径有关的问题时就可以考虑考虑哈夫曼树。</p>
+<h3 id="2-哈夫曼编码"><a href="#2-哈夫曼编码" class="headerlink" title="2.哈夫曼编码"></a>2.哈夫曼编码</h3><p>哈夫曼编码就是构造完最有二叉树后，左节点为0，有节点为1，可以通过此方法用二进制传输数据。</p>
+<ul>
+<li>总的来说哈夫曼树不算难，难的是什么时候去用，怎么去用。</li>
+</ul>
+
+                <hr>
+                <div>
+                    <p>
+                         
+                        <span class="badge badge-light">#&nbsp;java</span>
+                        &nbsp;
+                        
+                    </p>
+                </div>
+                <br>
+                
+                    <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                
+            </div>
+        </div>
+        <div class="d-none d-md-block col-md-2">
+            
+  <div id="toc" class="py-5">
+    <p class="h6"><i class="iconfont icon-toc" style="vertical-align:middle"></i> Toc:</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>        
+</div>
+
+<br><br><br>
+
+<!-- Comments -->
+<div class="comments" id="comments">
+ 
+</div>
+  
+  </main>
+
+<footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank"><b>Host on</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/lktidaohuoxing" target="_blank"> <b>LengKai</b></a>
+  </div>
+</footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/mdb.min.js"></script>
+  <script src="/js/main.js"></script>
+  
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    
+    <script src="/js/post.js"></script>
+    
+      <script src="/js/plugins/prettify.js"></script>
+      <script>
+          $(document).ready(function(){
+              $('pre').addClass('prettyprint linenums');
+              prettyPrint();
+          })
+      </script>
+    
+  
+</body>
+</html>
