@@ -86,6 +86,38 @@
 <div class="row mb-3">
 
 <div class="col-12 col-md-8 offset-md-2">
+    <a href="/2019/10/22/ArrayList/" class="h4" style="font-weight: 700;">ArrayList</a>
+    
+      <p class="mb-1">
+ArrayList
+重写源码
+
+
+
+问题
+Object[] EMPTY_ELEMENTDATA = {}  （EE） 和 Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {}（DEE） 的区别。
+
+源码上的解释：EE是一个用于空实例的共享数组实例，DEE是一个用于默认大小空实例的共享空数组实，DEE将通过添加一个元素时膨胀多少与EE区分。
+个人理解：两个都是空数组，名字不一样。从网上查阅相关资料后，EE是当有很多ArrayList空实例同时存在时，让他们同时指向一个EE，这项就不会产生不必要的空数组。DEE主要是当调用add方式确保已经创建的实例在添...</p>
+    
+    
+      <p>
+        <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-22
+        &nbsp;
+        
+            <i class="iconfont icon-cc-tag-more"></i>
+            
+                java&nbsp;
+            
+        
+      </p>
+    
+</div>
+</div>
+
+<div class="row mb-3">
+
+<div class="col-12 col-md-8 offset-md-2">
     <a href="/2019/10/17/Copy_method/" class="h4" style="font-weight: 700;">Arrays的Copy方法</a>
     
       <p class="mb-1">Cloning因为最近在重写 Java的ArrayList，ArrayList的底层又是通过一个ElementData的Object类型的数组实现的，所以，ArrayList的很多方法都数组的操作有关（例如 toarray），所以写一下源码解析。
