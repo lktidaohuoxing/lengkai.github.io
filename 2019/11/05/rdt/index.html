@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content>
+    <meta name="author" content="冷凯">
+    <meta name="keywords" content>
+    <title>构造可靠数据传输协议 ~ LengKai&#39;s blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/mdb.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1067060_vr10bjtg3us.css">
+    
+        <link rel="stylesheet" href="/css/Prettify/tomorrow-night-eighties.min.css">
+    
+</head>
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/"><strong>LengKai&#39;s blog</strong></a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2" style='background: url("https://i.imgur.com/oADD1Ip.jpg")no-repeat center center;background-size: cover;'>
+    <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+        <div class="container text-center white-text wow fadeInUp">
+            <p class="h2">构造可靠数据传输协议</p>
+            <br>
+            
+            <p>Tuesday, November 5th 2019, 3:48 pm</p>
+            
+        </div>
+        </div>
+    </div>
+    </div>
+  </header>
+
+  <main>
+  
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 ">
+            <div class="post-content py-5 z-depth-3 main">
+                <h2 id="构造可靠数据传输协议"><a href="#构造可靠数据传输协议" class="headerlink" title="构造可靠数据传输协议"></a>构造可靠数据传输协议</h2><p><em>在学习计算机网络自顶向下的过程中,我看的是哈工大的网课,在学习完3.4.1构造可靠数据传输协议后,老师在SR那一节最后来了个总结,回顾了一些rdt1.0,2.0之类的一些特点,虽然才学了两天,但我已经有点记不住了,所以写一篇来记录一下</em></p>
+<blockquote>
+<h4 id="Building-a-Reliable-Data-Transfer-Protocal-rdt-1-0"><a href="#Building-a-Reliable-Data-Transfer-Protocal-rdt-1-0" class="headerlink" title="Building a Reliable Data Transfer Protocal : rdt 1.0"></a>Building a Reliable Data Transfer Protocal : rdt 1.0</h4><p>Rdt1.0的一个大前提就是底层信道是完全可靠的,并且发送方和接收方的速率是一样的.所以不需要考虑丢包,数据损坏和传输速率等问题.</p>
+<blockquote>
+<p>Sender:只需要接受上层发送来的数据(较高层调用rdt_send(data)),并且打包成分组发送出去,不需要收到确认,因为信道是完全可靠的.</p>
+<p>Receiver:只需要等待下层信道传来数据,而后rdt调用rdt_rec(data),当数据从下层发送过来时,首先extract,然后deliver.</p>
+</blockquote>
+<p>rdt1.0的sender和receiver的FSM只有一个状态.</p>
+<h4 id="Realiable-Data-Transfer-over-a-Channel-with-Bit-Errors-rdt-2-0-rdt2-1-rdt2-2"><a href="#Realiable-Data-Transfer-over-a-Channel-with-Bit-Errors-rdt-2-0-rdt2-1-rdt2-2" class="headerlink" title="Realiable Data Transfer over a Channel with Bit Errors : rdt 2.0,rdt2.1,rdt2.2"></a>Realiable Data Transfer over a Channel with Bit Errors : rdt 2.0,rdt2.1,rdt2.2</h4><blockquote>
+<h6 id="rdt2-0"><a href="#rdt2-0" class="headerlink" title="rdt2.0"></a>rdt2.0</h6></blockquote>
+<blockquote>
+<p>rdt2.0之所以成为2.0是因为它比1.0多了一个处理byte error(位错误,即0-&gt;1,1-&gt;0)的能力,byte error通常出现在网络的物理部件中,但他仍然不能处理丢包等错误.rdt2.0主要是引入了一个Automatic Repeat reQuest(自动重传协议,ARQ),就是receiver在接受到数据时,通过<strong>差错检验</strong>来判断接受到的数据是否发生了byte error,然后对sender进行接收方反馈(包括“肯定确认“ACK和”否定确认“NAK),若发生错误则向sender发送NAK,sender重传该分组,若没有发生错误,则向sender发送ACK,sender就会进入下一个状态.</p>
+<blockquote>
+<p>差错检验:目前我只知道检验和(UDP中使用).</p>
+<p>Sender: rdt2.0的sender就多了一个状态,除了1.0的等待上层调用外还多了一个等待ACK或NAK,两个状态只有一个完成了之后才会互相转换,这种协议称为<strong>停等协议</strong>.当sender接收到了上层的数据时就会将他们打包,然后发送给receiver,然后进入等待ACK或NAK的状态,若收到的是NAK就重新发送数据,并且保持这个状态不变;若收到ACK则转换为 等待上层调用的状态.</p>
+<p>Receiver:2.0的receiver仍然只有一个状态,当他收到数据后如果判断出错,就会想sender发送一个NAK然后继续等待下层的调用;如果收到的数据判断没错,就会先extract(data),然后deliver给上层应用,然后对sender发送ACK.</p>
+</blockquote>
+<p>但是rdt2.0并不能完全处理好byte error这个问题,因为它无法处理ACK或NAK发生,此时2.0的sender就好像收到了一句废话.然后仍然等待的ACK或NAK网络就会瘫痪.所以rdt2.1就应运而生.</p>
+</blockquote>
+<blockquote>
+<h5 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h5><p>通过加入序号(sequence number),使得rdt2.1的sender和receiver FSM都是以前的两倍.为什么是两倍?因为对于停等协议这种简单情况,1比特序列号就足够了(0或1,通过模2运算“向前”移动).</p>
+<p>Sender:</p>
+<p>此时发送方的FSM有四种状态,<strong>1.</strong>首先是等待上层的调用,然后向接受方发送数据和序列号(此时为0),<strong>2.</strong>然后进入等待ACK或NAK 0,如果收到的是NAK 0或数据损坏,就再发一遍,如果收到的是ACK就进入状态<strong>3.</strong>等待来自上层的调用(与1的区别就是此时的sequence number变成了1),待上层调用后,就向接受方发送数据(序列号为1),然后进入<strong>4.</strong>等待ACK或NAK 1的状态,处理方法跟2类似,只不过序列号判别变成了1.     第四种状态结束后就会重新变成第一种状态(模2后回去的). 此时的sender跟2.0其实差不多,只不过多了两种序列号而已.</p>
+<p>Receiver:</p>
+<p>因为sequence number的加入,receiver的状态也乘以了2,所以就有两种状态. 首先是等待下层的调用序列号为0的rev调用,此时receiver期望收到的序列号为0。此时会有三种情况。<strong>1.</strong>如果收到的分组有误，就向sender发送一个NAK。<strong>2.</strong>如果收到的数据无误，但是收到的序列号为1，reveiver会对sender发送一个ACK,但自身的状态并不会改变。<strong>3.</strong>  如果收到的数据正确，并且数列号位0，那么首先exract数据，然后递交给上层应用，最后再想sender发送ACK，并且进入下一个状态。下一个跟刚才一样，只不过序列号为1。</p>
+</blockquote>
+<p>通过Sender和receiver，仔细一看不难发现，NAK在2.1中已经变成了一个可有可无的东西，所以接下来的rdt2.2就是删除了NAK，用序列号和ACK来代表判断正误，如果receiver收到的数据错误，那么只需要提取数据中的sequence number，然后加一对2取模，然后对sender进行反馈；sender发现收到的序列号与自己发送的不一致，就知道出错了。rdt2.2不做解释，跟2.1差不多。</p>
+<h4 id="Reliably-Data-Transfer-over-a-channel-that-can-corrupt-and-lose-packet-rdt3-0"><a href="#Reliably-Data-Transfer-over-a-channel-that-can-corrupt-and-lose-packet-rdt3-0" class="headerlink" title="Reliably Data Transfer over a channel that can corrupt and lose packet :  rdt3.0"></a>Reliably Data Transfer over a channel that can corrupt and lose packet :  rdt3.0</h4><blockquote>
+<p>rdt3.0需要解决的问题是在rdt2.2的基础上解决丢包的问题，所以加入了<strong>倒计数定时器（countdown timmer）</strong> 这个就是时间到了还没有收到ACK就说明包有可能丢失了，所有sender就会重传该数据。但如果说改包只是堵塞了呢？这就在sender和receiver之间引入<strong>冗余数据分组</strong>的可能性。但这是不用担心的，因为序号完全可以处理这个问题。</p>
+<p>sender：</p>
+<p>首先我们假设第一个状态是<strong>Wait for call 0 from above</strong>，这个状态会等待来自上层的调用rdt_send，调用后首先向receiver发送数据，然后启动定时器。之后进入下一个状态<strong>Wait for ACK 0</strong>,此时，<strong>1.</strong>如果收到receiver的ACK ，但序列号为1，的话sender会在发送一次数据并且在启动定时器。<strong>2.</strong>如果等待长时间后仍没有收到ACK，直到<strong>timeout</strong>了，那么sender还是再发送一次数据。<strong>3.</strong>最后一种情况就是收到了ACK并且序列号为0，那么就stop_timer，并且进入下一个状态<strong>Wait for call 1 from above</strong>，然后还有一个状态是<strong>Wait for ACK 1</strong>这个两个和上边一样，只不过序列号为1.</p>
+<p>receriver:</p>
+<p> 接收方和rdt2.2一样。</p>
+</blockquote>
+<p>看起来rdt3.0已经很完美了（没学完之前我也认为不错），但是它的性能问题一直制约着它，而造成性能问题的核心在于<strong>停等协议</strong>的使用。问什么它慢呢，我做一个假设，就是如果发送方和接收方的发送接收速度很快，但是物理链路传输的很慢，并且两个速度不是一个数量级的，那么在停等协议的情况下就导致了信道的利用率极低。T=发送时间+数据在链路上传送的时间+ACK在链路上发送的时间。过了这个时间T后，发送方才可以发送下一个数据。，这一是个形象的网络协议限制底层网络硬件的所提供的能力到例子。</p>
+<p>解决这个问题的方法就是不使用停等协议，改用流水线协议。</p>
+<p>就是<strong>1.</strong>增加序列号范围。<strong>2.</strong>设置缓存空间。这两条就可以构造出一个<strong>滑动窗空</strong>。</p>
+<p>但是流水线协议如何进行差错恢复呢？两个方法：<strong>1.回退N步（Go-Back-N protocal，GBN）</strong>，<strong>2.选择重传（Selective Repeative,SR)</strong>。</p>
+</blockquote>
+
+                <hr>
+                <div>
+                    <p>
+                         
+                        <span class="badge badge-light">#&nbsp;计算机网络</span>
+                        &nbsp;
+                        
+                    </p>
+                </div>
+                <br>
+                
+                    <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                
+            </div>
+        </div>
+        <div class="d-none d-md-block col-md-2">
+            
+  <div id="toc" class="py-5">
+    <p class="h6"><i class="iconfont icon-toc" style="vertical-align:middle"></i> Toc:</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>        
+</div>
+
+<br><br><br>
+
+<!-- Comments -->
+<div class="comments" id="comments">
+ 
+</div>
+  
+  </main>
+
+<footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank"><b>Host on</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/lktidaohuoxing" target="_blank"> <b>LengKai</b></a>
+  </div>
+</footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/mdb.min.js"></script>
+  <script src="/js/main.js"></script>
+  
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    
+    <script src="/js/post.js"></script>
+    
+      <script src="/js/plugins/prettify.js"></script>
+      <script>
+          $(document).ready(function(){
+              $('pre').addClass('prettyprint linenums');
+              prettyPrint();
+          })
+      </script>
+    
+  
+</body>
+</html>

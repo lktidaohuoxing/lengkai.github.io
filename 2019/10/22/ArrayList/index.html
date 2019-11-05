@@ -106,72 +106,93 @@
 <ul>
 <li><pre><code class="java">private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 </code></pre>
-</li>
+<code>`</code></li>
 </ul>
-<p>为什么要设置一个MAX_ARRAY_SIZE?因为数组作为对象，需要存储一定的表头信息，而这个表头信息最大为8个字节，所以最大值设置为MAXVALUE-8；</p>
+<p>为什么要设置一个MAX_ARRAY_SIZE?因为数组作为对象，需要存储一定的表头信息，而这个表头信息最大为8个字节，所以最大值设置为MAXVALUE-8；<br><code>`</code></p>
 </blockquote>
 <h3 id="方法和参数介绍"><a href="#方法和参数介绍" class="headerlink" title="方法和参数介绍"></a>方法和参数介绍</h3><ul>
 <li><pre><code>private static final int DEFAULT_CAPACITY = 10
-</code></pre><p>初始容量</p>
-</li>
+</code></pre><code>`</code></li>
+</ul>
+<p>初始容量</p>
+<ul>
 <li><pre><code class="java">private static final Object[] EMPTY_ELEMENTDATA = {};
 private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
 </code></pre>
-<p>空数组</p>
 </li>
+</ul>
+<p>空数组</p>
+<ul>
 <li><pre><code class="java">transient Object[] elementData;
 </code></pre>
+<code>`</code></li>
+</ul>
 <p>用于存储对象的数组</p>
-</li>
+<ul>
 <li><pre><code class="java">private int size;
 </code></pre>
-<p>实际包含多少元素</p>
 </li>
+</ul>
+<p>实际包含多少元素</p>
+<ul>
 <li><pre><code class="java">protected transient int modCount = 0;
 </code></pre>
+<code>`</code></li>
+</ul>
 <p>记录有多少次结构性改变。</p>
-<pre><code class="java">private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
-</code></pre>
-<p>最大数组含量</p>
-</li>
-<li><pre><code class="java">public ArrayList(int initialCapacity)
-</code></pre>
-<pre><code class="java">public ArrayList()
-</code></pre>
-<pre><code class="java">public ArrayList(Collection&lt;? extends E&gt; c)
+<p>​<code>`</code>java<br>private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;</p>
+<pre><code>
+最大数组含量
+
+* ```java
+  public ArrayList(int initialCapacity)
+</code></pre><pre><code>
+​```java
+public ArrayList()
+</code></pre><pre><code class="java">public ArrayList(Collection&lt;? extends E&gt; c)
 </code></pre>
 <p>三种构造函数</p>
-</li>
+<ul>
 <li><pre><code class="java">public void ensureCapacity(int minCapacity)
 </code></pre>
-<pre><code class="java">private Object[] grow(int minCapacity)
-</code></pre>
-<pre><code class="java">private int newCapacity(int minCapacity)
-</code></pre>
-<pre><code class="java">private static int HugeCapacity(int minCapacity)
+<code>`</code></li>
+</ul>
+<p>​<code>`</code>java<br>private Object[] grow(int minCapacity)</p>
+<pre><code>
+```java
+private int newCapacity(int minCapacity)
+</code></pre><pre><code class="java">private static int HugeCapacity(int minCapacity)
 </code></pre>
 <p>以上方法用数组的扩容。</p>
-</li>
+<ul>
 <li><pre><code class="java">public int size() 
 </code></pre>
+<code>`</code></li>
+</ul>
 <p>返回数组所含元素的数量</p>
-</li>
+<ul>
 <li><pre><code class="java">public boolean isEmpty()
 </code></pre>
-<p>返回是否为空</p>
 </li>
+</ul>
+<p>返回是否为空</p>
+<ul>
 <li><pre><code class="java">public boolean contains(Object obj)
 </code></pre>
+<code>`</code></li>
+</ul>
 <p>判断是否含有obj</p>
-</li>
+<ul>
 <li><pre><code class="java">public Object[] toArray()
 </code></pre>
-<p>把arraylist转换为一个Object[]数组</p>
 </li>
+</ul>
+<p>把arraylist转换为一个Object[]数组</p>
+<ul>
 <li></li>
 </ul>
 </blockquote>
-
+<h2 id="今天打算跟一个医学院的老师做项目，任务繁重，所以tiny-jstl-先暂停吧。差不多就流产了-，哎-。"><a href="#今天打算跟一个医学院的老师做项目，任务繁重，所以tiny-jstl-先暂停吧。差不多就流产了-，哎-。" class="headerlink" title="今天打算跟一个医学院的老师做项目，任务繁重，所以tiny jstl 先暂停吧。差不多就流产了 ，哎 。"></a>今天打算跟一个医学院的老师做项目，任务繁重，所以tiny jstl 先暂停吧。差不多就流产了 ，哎 。</h2>
                 <hr>
                 <div>
                     <p>
